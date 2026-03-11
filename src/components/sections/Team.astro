@@ -1,0 +1,45 @@
+---
+const team = [
+  {
+    name: "Malena Romero",
+    role: "Coordinadora ATL y BTL",
+    bio: "Junto a Kathe coordinan tus publicaciones y contactan a tus proveedores",
+    photo: "https://cdn.sanity.io/images/q0vsroiq/production/b0ce356df4537d575b80b53bd508ce46e8de3bb8-799x799.heif",
+  },
+  {
+    name: "Luis Lopez",
+    role: "Editor de vídeos",
+    bio: "Transforma momentos simples en emociones visuales que inspiran.",
+    photo: "https://cdn.sanity.io/images/q0vsroiq/production/91522fdf13952653c5e44b0ea33f4dbd3b88d1d5-533x800.heif",
+  },
+  {
+    name: "Mateo Minda",
+    role: "Fotógrafo profesional",
+    bio: "Captura imágenes que reflejan la esencia de cada marca.",
+    photo: "https://cdn.sanity.io/images/q0vsroiq/production/5f3b422785cecfd270f187a028be89a75b6649b6-640x640.heif",
+  },
+];
+---
+<section class="team" id="equipo">
+  <div class="container">
+    <h2 class="team__title section-header">
+      Nuestro <span>equipo</span>
+    </h2>
+    <div class="team__grid cards-stagger">
+      {team.map((member) => (
+        <div class="team-card card-item">
+          <img
+            src={member.photo}
+            alt={member.name}
+            class="team-card__avatar"
+            width="240"
+            height="240"
+          />
+          <h3 class="team-card__name">{member.name}</h3>
+          <p class="team-card__role">{member.role}</p>
+          <p class="team-card__bio">{member.bio}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

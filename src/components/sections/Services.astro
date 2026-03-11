@@ -1,0 +1,36 @@
+---
+const WA = "https://wa.me/message/SEZARQ7BAYQOC1";
+
+const services = [
+  { title: "Administración de redes sociales", img: "https://cdn.sanity.io/images/q0vsroiq/production/e2dfb30570450c7d560f11f8501c0f2b12ee9014-533x800.heif", cls: "sc-redes" },
+  { title: "Grabación de contenido",           img: "https://cdn.sanity.io/images/q0vsroiq/production/e0798a15d58f97ae1ee1db2426c7e8f31a456fbd-533x800.heif", cls: "sc-grab" },
+  { title: "Fotografía profesional",            img: "https://cdn.sanity.io/images/q0vsroiq/production/8c0a93f45ea5c2f8a6fefafd71ad84b1047c9d00-640x800.heif", cls: "sc-foto" },
+  { title: "Diseño Web",                        img: "https://cdn.sanity.io/images/q0vsroiq/production/377214907b82344b312c3b3680b188a1d7c5ef88-800x704.heif", cls: "sc-web" },
+  { title: "Empaques",                          img: "https://cdn.sanity.io/images/q0vsroiq/production/ecccddd06f1bf782697edb30dbb06e8108c468df-800x618.heif", cls: "sc-emp" },
+  { title: "Publicidad pautada",                img: "https://cdn.sanity.io/images/q0vsroiq/production/77b8c6a206ce0a69102722227369e08e7f6cc5fe-533x800.heif", cls: "sc-pautada" },
+  { title: "Implementación de CRM",             img: "https://cdn.sanity.io/images/q0vsroiq/production/22ee0ce810456988a6a2bdf06a86f892b5f61b60-1600x1067.heif", cls: "sc-crm" },
+  { title: "Publicidad impresa",                img: "https://cdn.sanity.io/images/q0vsroiq/production/58fc982ef38bc4f4a95ee866012a96909d96021a-1600x1067.heif", cls: "sc-impresa" },
+  { title: "Accesorios tecnológicos",           img: "https://cdn.sanity.io/images/q0vsroiq/production/c92f462c3f7a63a29e2f47f5de63926eace54f3f-1600x1067.heif", cls: "sc-acc" },
+];
+---
+<section class="services" id="servicios">
+  <div class="services__banner">
+    <div class="container">
+      <h2 class="section-header">Nuestros servicios</h2>
+    </div>
+  </div>
+
+  <div class="services__grid">
+    {services.map((svc) => (
+      <div class={`service-card ${svc.cls}`}>
+        <img src={svc.img} alt={svc.title} class="service-card__img" />
+        <div class="service-card__overlay">
+          <h3 class="service-card__title">{svc.title}</h3>
+          <a href={WA} target="_blank" rel="noopener noreferrer" class="service-card__btn">
+            Más información
+          </a>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

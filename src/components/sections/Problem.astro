@@ -1,0 +1,154 @@
+---
+---
+<section class="problem" id="nosotros">
+  <div class="container">
+    <h2 class="problem__heading section-header fade-up">
+      El mundo cambió...
+    </h2>
+
+    <div class="problem__inner">
+      <!-- Imagen izquierda con badge -->
+      <div class="problem__media fade-up">
+        <img
+          src="https://cdn.sanity.io/images/q0vsroiq/production/4da045a4542ba85ddce4ee40d93e05fee08a22b3-1600x1067.webp"
+          alt="Mujer grabando contenido digital"
+          class="problem__image parallax-img"
+        />
+        <!-- Badge estilo notificación Instagram -->
+        <div class="problem__badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
+            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+          </svg>
+          <span class="problem__badge-num" data-value="35">0</span>
+        </div>
+      </div>
+
+      <!-- Texto derecha -->
+      <div class="problem__content fade-up">
+        <h3 class="problem__title">
+          Si tu empresa no está en redes,<br />
+          <span class="problem__title--dark">NO está en el mapa</span>
+        </h3>
+        <p class="problem__body">
+          Cada día que tu marca no aparece, es una oportunidad perdida para
+          atraer clientes, ganar confianza y destacarte frente a la competencia.
+          Imagina el poder de estar presente y captar la atención de tu audiencia
+          en el momento justo.
+        </p>
+        <p class="problem__cta-text">
+          ¿Estás listo para llevar tu negocio al
+          <strong>siguiente nivel?</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.problem {
+  padding: clamp(48px, 7vw, 96px) 0;
+  background: var(--cream);
+}
+
+.problem__heading {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 900;
+  color: var(--pink);
+  text-align: center;
+  margin-bottom: clamp(28px, 3.5vw, 44px);
+}
+
+.problem__inner {
+  display: grid;
+  grid-template-columns: 45fr 55fr;
+  gap: clamp(32px, 4vw, 56px);
+  align-items: flex-start;
+}
+
+/* ── Imagen ───────────────────────────── */
+.problem__media {
+  position: relative;
+  padding-top: 28px; /* espacio para que el badge quede visible arriba */
+}
+
+.problem__image {
+  width: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+  display: block;
+  aspect-ratio: 4/5;
+  max-height: 560px;
+}
+
+/* ── Badge notificación ───────────────── */
+.problem__badge {
+  position: absolute;
+  top: 0;                  /* encima del padding-top del media */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #FF3040;
+  color: #fff;
+  padding: 9px 18px;
+  border-radius: 50px;
+  font-weight: 900;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 6px 20px rgba(255, 48, 64, 0.5);
+  white-space: nowrap;
+  z-index: 2;
+  letter-spacing: 0.01em;
+}
+
+/* ── Contenido texto ──────────────────── */
+.problem__content {
+  padding-top: 28px; /* alinea con la imagen (compensa el padding del badge) */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.problem__title {
+  font-size: clamp(1.8rem, 2.6vw, 2.6rem);
+  font-weight: 900;
+  color: var(--pink);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.problem__title--dark {
+  color: var(--dark);
+}
+
+.problem__body {
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  color: var(--dark);
+  line-height: 1.7;
+  opacity: 0.85;
+  margin: 0;
+}
+
+.problem__cta-text {
+  font-size: clamp(1.3rem, 2vw, 1.75rem);
+  font-weight: 900;
+  color: var(--dark);
+  line-height: 1.25;
+  margin: 0;
+}
+
+/* ── Responsive ───────────────────────── */
+@media (max-width: 768px) {
+  .problem__inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .problem__media {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .problem__content {
+    padding-top: 0;
+  }
+}
+</style>

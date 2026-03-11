@@ -1,0 +1,56 @@
+---
+import { sanityClient, urlFor } from '../../lib/sanity'
+
+interface Marca {
+  _id: string
+  nombre: string
+  logo: { asset: { _ref: string } }
+  destacada: boolean
+  orden: number
+}
+
+const marcas: Marca[] = await sanityClient.fetch(
+  `*[_type == "marca"] | order(orden asc) {
+    _id,
+    nombre,
+    logo,
+    destacada,
+    orden
+  }`
+)
+---
+
+<section class="brands" id="marcas">
+  <div class="container">
+    <h2 class="brands__title section-header">
+      <span>Marcas</span> con las que hemos colaborado
+    </h2>
+
+    {marcas.length === 0 ? (
+      <p class="brands__empty">Próximamente...</p>
+    ) : (
+      <div class="brands__grid">
+        {marcas.map((marca) => (
+          <div class={`brand-logo${marca.destacada ? ' brand-logo--featured' : ''}`}>
+            <img
+              src={urlFor(marca.logo).width(240).height(240).fit('max').auto('format').url()}
+              alt={marca.nombre}
+              loading="lazy"
+              width="160"
+              height="160"
+            />
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+.brands__empty {
+  text-align: center;
+  color: var(--gray);
+  font-size: 1rem;
+  padding: 40px 0;
+}
+</style>

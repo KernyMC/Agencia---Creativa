@@ -1,0 +1,234 @@
+---
+import { sanityClient, urlFor } from '../../lib/sanity'
+
+interface Fundacion {
+  _id: string
+  nombre: string
+  descripcion: string
+  foto: { asset: { _ref: string } }
+  logo: { asset: { _ref: string } }
+}
+
+const fundaciones: Fundacion[] = await sanityClient.fetch(
+  `*[_type == "fundacion"] | order(orden asc) { _id, nombre, descripcion, foto, logo }`
+)
+---
+
+<section>
+  <!-- Banner rosa -->
+  <div class="rsc__banner">
+    <div class="container">
+      <h2 class="section-header">Responsabilidad social</h2>
+    </div>
+  </div>
+
+  <!-- Descripción: imagen izquierda + texto derecha -->
+  <div class="container">
+    <div class="rsc__body">
+      <div class="rsc__image fade-up">
+        <img
+          src="https://cdn.sanity.io/images/q0vsroiq/production/0ac57c7bccc1153084b6a66f1818bd1fba1d8424-1599x1066.jpg"
+          alt="Responsabilidad social Creativa"
+        />
+      </div>
+      <div class="rsc__content fade-up">
+        <h3 class="rsc__subtitle">Marketing con propósito</h3>
+        <p class="rsc__text">
+          En Creativa creemos que crecer también significa ayudar.
+        </p>
+        <p class="rsc__text">
+          Por eso destinamos parte de nuestro trabajo y energía a
+          <strong>apoyar causas que amamos.</strong>
+        </p>
+        <p class="rsc__text">
+          Por eso compartimos nuestro conocimiento a 2
+          <strong>maravillosas fundaciones:</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- Fundaciones -->
+    <div class="rsc__foundations">
+      <h3 class="rsc__foundations-title section-header">Fundaciones</h3>
+
+      {fundaciones.length > 0 ? (
+        <div class="foundations-grid cards-stagger">
+          {fundaciones.map((f) => (
+            <div class="found-card card-item">
+              <div class="found-card__media">
+                <img
+                  src={urlFor(f.foto).width(600).height(420).fit('crop').crop('center').auto('format').url()}
+                  alt={f.nombre}
+                  class="found-card__photo"
+                />
+                <div class="found-card__logo-wrap">
+                  <img
+                    src={urlFor(f.logo).width(120).height(120).fit('crop').crop('center').auto('format').url()}
+                    alt={`Logo ${f.nombre}`}
+                    class="found-card__logo"
+                  />
+                </div>
+              </div>
+              <h4 class="found-card__name">{f.nombre}</h4>
+              <p class="found-card__desc">{f.descripcion}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <!-- Fallback mientras no hay datos en Sanity -->
+        <div class="foundations-grid cards-stagger">
+          <div class="found-card card-item">
+            <div class="found-card__media">
+              <img
+                src="https://cdn.sanity.io/images/q0vsroiq/production/e2fd79f846aa78a1a9171330a315ff1721ca54ed-800x450.heif"
+                alt="Semillero de Esperanza"
+                class="found-card__photo"
+              />
+              <div class="found-card__logo-wrap">
+                <img
+                  src="https://cdn.sanity.io/images/q0vsroiq/production/b116d64eb699ee7e5d36c4ac4172a85e6c83a271-225x225.webp"
+                  alt="Logo Semillero de Esperanza"
+                  class="found-card__logo"
+                />
+              </div>
+            </div>
+            <h4 class="found-card__name">Semillero de Esperanza</h4>
+            <p class="found-card__desc">Brinda hogar, educación y amor a niños en situación de abandono.</p>
+          </div>
+          <div class="found-card card-item">
+            <div class="found-card__media">
+              <img
+                src="https://cdn.sanity.io/images/q0vsroiq/production/926c859fe2390b03caf1cc77221db2af7d09eec5-1394x592.heif"
+                alt="Fundación Compartamos"
+                class="found-card__photo"
+              />
+              <div class="found-card__logo-wrap">
+                <img
+                  src="https://cdn.sanity.io/images/q0vsroiq/production/142974971fc8a2df402ffa74e485a3e11807fae1-800x800.heif"
+                  alt="Logo Fundación Compartamos"
+                  class="found-card__logo"
+                />
+              </div>
+            </div>
+            <h4 class="found-card__name">Fundación Compartamos</h4>
+            <p class="found-card__desc">Acompaña y cuida a adultos mayores en situación vulnerable.</p>
+          </div>
+        </div>
+      )}
+
+      <!-- CTA -->
+      <div class="rsc__cta fade-up">
+        <a
+          href="https://wa.me/593984703256"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn--pink"
+          style="font-size:0.85rem; letter-spacing:0.1em;"
+        >
+          MUEVE TU CORAZONCITO AQUÍ
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* Foundation cards — exacto al screenshot */
+.found-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.found-card__media {
+  position: relative;
+  width: 100%;
+  border-radius: 20px;
+  overflow: visible; /* permite que el badge sobresalga */
+}
+
+.found-card__photo {
+  width: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 20px;
+  display: block;
+}
+
+/* Placeholder cuando no hay imagen */
+.found-card__media--placeholder {
+  background: var(--pink-bg);
+  aspect-ratio: 4/3;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Badge logo circular — como en el screenshot */
+.found-card__logo-wrap {
+  position: absolute;
+  bottom: -24px;
+  right: 28px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--pink);
+  background: white;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  z-index: 2;
+}
+
+.found-card__logo-wrap--placeholder {
+  position: absolute;
+  bottom: -24px;
+  right: 28px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--pink);
+  background: white;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  z-index: 2;
+}
+
+.found-card__logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.found-card__name {
+  margin-top: 28px; /* espacio para el badge que sobresale */
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 900;
+  color: var(--dark);
+}
+
+.found-card__desc {
+  font-size: 0.9rem;
+  color: var(--dark);
+  opacity: 0.72;
+  line-height: 1.6;
+  max-width: 340px;
+}
+
+.rsc__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+  padding-bottom: 20px;
+}
+</style>

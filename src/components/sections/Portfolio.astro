@@ -1,0 +1,39 @@
+---
+const categories = [
+  { label: "Diseño y creación de contenido",          color: "#1A1A2E" },
+  { label: "Diseño web e implementación de CRM",       color: "#2B1B6B" },
+  { label: "Spots publicitarios",                      color: "#E8007D" },
+  { label: "Publicidad impresa o material POP",        color: "#3D4A1A" },
+];
+---
+<section class="portfolio fade-up" id="portafolio">
+  <div class="container">
+    <div class="portfolio__inner">
+      <p class="portfolio__eyebrow">Portafolio</p>
+      <h2 class="portfolio__title section-header">Somos parte de ti</h2>
+
+      <div class="portfolio__grid cards-stagger">
+        {categories.map((cat) => (
+          <div class="portfolio-item card-item" style={`background: ${cat.color};`}>
+            <p class="portfolio-item__label">{cat.label}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="portfolio__cta-wrap fade-up">
+        <p style="color:rgba(255,255,255,.7); font-size:.85rem; margin-bottom:12px; text-align:center;">
+          CLIC AQUÍ PARA VER
+        </p>
+        <a
+          href="https://wa.me/message/SEZARQ7BAYQOC1"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn"
+          style="background:white; color:var(--pink);"
+        >
+          Ver portafolio completo
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

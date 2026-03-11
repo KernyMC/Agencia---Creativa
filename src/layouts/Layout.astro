@@ -1,0 +1,34 @@
+---
+import "../styles/global.css";
+import Header from "../components/common/Header.astro";
+import FloatingActions from "../components/common/FloatingActions.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Creativa — Agencia de Marketing y Publicidad para PYMES",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <FloatingActions />
+  </body>
+</html>
