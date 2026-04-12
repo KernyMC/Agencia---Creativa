@@ -18,39 +18,170 @@ const marcas: Marca[] = await sanityClient.fetch(
     orden
   }`
 )
+
+// Both rows use all brands; row 2 in reverse for visual variety
+// 4 copies ensures the track is always wider than the viewport
+const COPIES = 4
+const row1Items = marcas.length > 0
+  ? Array.from({ length: COPIES }).flatMap(() => marcas)
+  : Array.from({ length: COPIES }).flatMap((_, ci) =>
+      Array.from({ length: 6 }, (_, i) => ({ _id: `ph-${ci}-${i}`, nombre: `Marca ${i + 1}`, isPlaceholder: true }))
+    )
+
+const reversed = [...marcas].reverse()
+const row2Items = marcas.length > 0
+  ? Array.from({ length: COPIES }).flatMap(() => reversed)
+  : Array.from({ length: COPIES }).flatMap((_, ci) =>
+      Array.from({ length: 6 }, (_, i) => ({ _id: `ph2-${ci}-${i}`, nombre: `Marca ${i + 7}`, isPlaceholder: true }))
+    )
 ---
 
 <section class="brands" id="marcas">
-  <div class="container">
+  <div class="brands__header">
     <h2 class="brands__title section-header">
       <span>Marcas</span> con las que hemos colaborado
     </h2>
+  </div>
 
-    {marcas.length === 0 ? (
-      <p class="brands__empty">Próximamente...</p>
-    ) : (
-      <div class="brands__grid">
-        {marcas.map((marca) => (
-          <div class={`brand-logo${marca.destacada ? ' brand-logo--featured' : ''}`}>
-            <img
-              src={urlFor(marca.logo).width(240).height(240).fit('max').auto('format').url()}
-              alt={marca.nombre}
-              loading="lazy"
-              width="160"
-              height="160"
-            />
-          </div>
-        ))}
+  <div class="marquees">
+    <div class="marquee-row row-forward">
+      <div class="marquee-track">
+        {row1Items.map((marca: any, i: number) =>
+          marca.isPlaceholder ? (
+            <div class="marquee-item marquee-item--placeholder">
+              <span>{marca.nombre}</span>
+            </div>
+          ) : (
+            <div class="marquee-item">
+              <img
+                src={urlFor(marca.logo).width(420).fit('max').auto('format').url()}
+                alt={marca.nombre}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          )
+        )}
       </div>
-    )}
+    </div>
+
+    <div class="marquee-row row-reverse">
+      <div class="marquee-track">
+        {row2Items.map((marca: any, i: number) =>
+          marca.isPlaceholder ? (
+            <div class="marquee-item marquee-item--placeholder">
+              <span>{marca.nombre}</span>
+            </div>
+          ) : (
+            <div class="marquee-item">
+              <img
+                src={urlFor(marca.logo).width(420).fit('max').auto('format').url()}
+                alt={marca.nombre}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          )
+        )}
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
-.brands__empty {
+.brands {
+  padding: 80px 0;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+.brands__header {
   text-align: center;
-  color: var(--gray);
-  font-size: 1rem;
-  padding: 40px 0;
+  padding: 0 24px;
+  margin-bottom: 48px;
+}
+
+.marquees {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.marquee-row {
+  overflow: hidden;
+  width: 100%;
+}
+
+.marquee-track {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 16px;
+  width: max-content;
+  will-change: transform;
+}
+
+.marquee-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  flex-shrink: 0;
+  padding: 4px;
+}
+
+.marquee-item img {
+  width: auto;
+  height: clamp(52px, 6.5vw, 88px);
+  max-width: clamp(120px, 16vw, 220px);
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.6;
+  transition: filter 0.2s, opacity 0.2s, transform 0.2s;
+}
+
+.marquee-item:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.03);
+}
+
+.marquee-item--placeholder {
+  color: var(--dark);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0.4;
+}
+
+/*
+  4 copies total → animate by exactly 1/4 = 25% of track width
+  = one full set of brands → seamless loop with no gaps
+*/
+.row-forward .marquee-track {
+  animation: scroll-left 35s linear infinite;
+}
+
+.row-reverse .marquee-track {
+  /* start at -25% so first frame is also full-width */
+  transform: translateX(-25%);
+  animation: scroll-right 35s linear infinite;
+}
+
+@keyframes scroll-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+
+@keyframes scroll-right {
+  0%   { transform: translateX(-25%); }
+  100% { transform: translateX(0); }
+}
+
+.marquee-row:hover .marquee-track {
+  animation-play-state: paused;
 }
 </style>

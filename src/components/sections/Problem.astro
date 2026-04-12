@@ -14,12 +14,28 @@
           alt="Mujer grabando contenido digital"
           class="problem__image parallax-img"
         />
-        <!-- Badge estilo notificación Instagram -->
+        <!-- Badge estilo globo de notificación red social -->
         <div class="problem__badge" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
-            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+          <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" class="problem__badge-svg">
+            <!-- Globo -->
+            <path d="M 30,20 H 170 A 20,20 0 0 1 190,40 V 100 A 20,20 0 0 1 170,120 H 115 L 100,140 L 85,120 H 30 A 20,20 0 0 1 10,100 V 40 A 20,20 0 0 1 30,20 Z"
+                  fill="#e4405f" />
+            <!-- Icono usuario -->
+            <circle cx="60" cy="50" r="14" fill="white" />
+            <path d="M 40,90 A 20,20 0 0 1 80,90 Z" fill="white" />
+            <!-- Número (controlado por GSAP counter) -->
+            <text
+              x="130" y="70"
+              fill="white"
+              font-family="Nunito, Arial, sans-serif"
+              font-size="58"
+              font-weight="900"
+              text-anchor="middle"
+              dominant-baseline="central"
+              class="problem__badge-num"
+              data-value="35"
+            >0</text>
           </svg>
-          <span class="problem__badge-num" data-value="35">0</span>
         </div>
       </div>
 
@@ -83,22 +99,18 @@
 /* ── Badge notificación ───────────────── */
 .problem__badge {
   position: absolute;
-  top: 0;                  /* encima del padding-top del media */
+  top: 0;
   left: 50%;
-  transform: translateX(-50%);
-  background: #FF3040;
-  color: #fff;
-  padding: 9px 18px;
-  border-radius: 50px;
-  font-weight: 900;
-  font-size: 1.05rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 6px 20px rgba(255, 48, 64, 0.5);
-  white-space: nowrap;
+  transform: translateX(-10%) rotate(8deg);
   z-index: 2;
-  letter-spacing: 0.01em;
+  width: 130px;
+  filter: drop-shadow(0 6px 20px rgba(228, 64, 95, 0.5));
+}
+
+.problem__badge-svg {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* ── Contenido texto ──────────────────── */

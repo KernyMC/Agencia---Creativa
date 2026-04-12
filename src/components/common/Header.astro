@@ -50,14 +50,13 @@ const links = [
 
       <!-- CTA + hamburger -->
       <div class="header__actions">
-        <a
-          href="https://wa.me/593984703256?text=Quiero%20recibir%20la%20consultor%C3%ADa%20GRATIS"
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          type="button"
           class="btn btn--pink header__cta-btn"
+          data-open-calendly
         >
           Asesoría gratis
-        </a>
+        </button>
         <button
           class="hamburger"
           id="hamburgerBtn"
@@ -89,17 +88,31 @@ const links = [
       }
     </ul>
   </nav>
-  <a
-    href="https://wa.me/593984703256?text=Quiero%20recibir%20la%20consultor%C3%ADa%20GRATIS"
-    target="_blank"
-    rel="noopener noreferrer"
+  <button
+    type="button"
     class="btn btn--pink mobile-menu__cta"
+    data-open-calendly
   >
     Asesoría gratis
-  </a>
+  </button>
 </div>
 <!-- Backdrop -->
 <div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
+
+<!-- Calendly modal -->
+<div class="calendly-modal" id="calendlyModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Agenda tu asesoría">
+  <div class="calendly-modal__backdrop" id="calendlyBackdrop"></div>
+  <div class="calendly-modal__panel" role="document">
+    <button type="button" class="calendly-modal__close" id="calendlyClose" aria-label="Cerrar calendario">Cerrar</button>
+    <div
+      class="calendly-inline-widget"
+      data-url="https://calendly.com/creativamarketinguio/30min?primary_color=e8007d"
+      style="min-width:320px;height:700px;"
+    ></div>
+  </div>
+</div>
+
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
 <style>
   /* ---- Scroll progress ---- */
@@ -353,6 +366,53 @@ const links = [
     pointer-events: all;
   }
 
+  /* Calendly modal */
+  .calendly-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 260;
+    display: none;
+  }
+  .calendly-modal.is-open {
+    display: block;
+  }
+  .calendly-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 13, 13, 0.5);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+  }
+  .calendly-modal__panel {
+    position: relative;
+    z-index: 1;
+    width: min(960px, calc(100vw - 24px));
+    margin: clamp(8px, 2vw, 24px) auto;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  }
+  .calendly-modal__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(26, 10, 77, 0.92);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  .calendly-modal .calendly-inline-widget {
+    width: 100%;
+  }
+
   /* ---- Responsive ---- */
   @media (max-width: 860px) {
     .nav {
@@ -377,6 +437,11 @@ const links = [
     document.querySelectorAll<HTMLAnchorElement>("[data-navlink]");
   const mobileLinks =
     document.querySelectorAll<HTMLAnchorElement>("[data-mobilelink]");
+  const calendlyButtons =
+    document.querySelectorAll<HTMLButtonElement>("[data-open-calendly]");
+  const calendlyModal = document.getElementById("calendlyModal")!;
+  const calendlyBackdrop = document.getElementById("calendlyBackdrop")!;
+  const calendlyClose = document.getElementById("calendlyClose")!;
 
   // ── Scroll progress ──────────────────────────
   function updateProgress() {
@@ -450,10 +515,33 @@ const links = [
     document.body.style.overflow = "";
   }
 
+  function openCalendly() {
+    closeMenu();
+    calendlyModal.classList.add("is-open");
+    calendlyModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeCalendly() {
+    calendlyModal.classList.remove("is-open");
+    calendlyModal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
   hamburger.addEventListener("click", () =>
     hamburger.classList.contains("is-open") ? closeMenu() : openMenu(),
   );
   backdrop.addEventListener("click", closeMenu);
+  calendlyBackdrop.addEventListener("click", closeCalendly);
+  calendlyClose.addEventListener("click", closeCalendly);
+  calendlyButtons.forEach((btn) => {
+    btn.addEventListener("click", openCalendly);
+  });
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && calendlyModal.classList.contains("is-open")) {
+      closeCalendly();
+    }
+  });
 
   // Close + smooth scroll on mobile links
   mobileLinks.forEach((link) => {
