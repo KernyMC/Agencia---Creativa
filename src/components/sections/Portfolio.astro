@@ -1,39 +1,399 @@
 ---
-const categories = [
-  { label: "Diseño y creación de contenido",          color: "#1A1A2E" },
-  { label: "Diseño web e implementación de CRM",       color: "#2B1B6B" },
-  { label: "Spots publicitarios",                      color: "#E8007D" },
-  { label: "Publicidad impresa o material POP",        color: "#3D4A1A" },
-];
 ---
-<section class="portfolio fade-up" id="portafolio">
-  <div class="container">
-    <div class="portfolio__inner">
-      <p class="portfolio__eyebrow">Portafolio</p>
-      <h2 class="portfolio__title section-header">Somos parte de ti</h2>
 
-      <div class="portfolio__grid cards-stagger">
-        {categories.map((cat) => (
-          <div class="portfolio-item card-item" style={`background: ${cat.color};`}>
-            <p class="portfolio-item__label">{cat.label}</p>
-          </div>
-        ))}
-      </div>
+<section class="portfolio" id="portafolio">
 
-      <div class="portfolio__cta-wrap fade-up">
-        <p style="color:rgba(255,255,255,.7); font-size:.85rem; margin-bottom:12px; text-align:center;">
-          CLIC AQUÍ PARA VER
-        </p>
-        <a
-          href="https://wa.me/message/SEZARQ7BAYQOC1"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn"
-          style="background:white; color:var(--pink);"
-        >
-          Ver portafolio completo
-        </a>
-      </div>
-    </div>
+  <!-- Encabezado estático arriba del pin -->
+  <div class="portfolio__header">
+    <p class="portfolio__eyebrow">PORTAFOLIO</p>
+    <h2 class="portfolio__title">Lo que hacemos</h2>
   </div>
+
+
+  <!-- Zona pineada — scroll horizontal -->
+  <div class="portfolio__pin-zone" id="portfolioPin">
+    <div class="portfolio__track">
+
+      <!-- Card 1: Spots publicitarios -->
+      <div class="pf-card pf-card--video">
+        <h3 class="pf-card__title">Spots<br/>Publicitarios</h3>
+        <div class="pf-card__media">
+          <video autoplay loop muted playsinline class="pf-card__video">
+            <source
+              src="https://proffesional.my.canva.site/creativa-agencia/_assets/video/bddc4baac4fd8c696e2cd55cfc58841d.mp4"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+      </div>
+
+      <!-- Card 2: Diseño y creación de contenido -->
+      <div class="pf-card pf-card--content">
+        <h3 class="pf-card__title">Diseño y creación<br/>de contenido</h3>
+        <div class="pf-card__media pf-card__media--img">
+          <!-- Coloca aquí tu imagen cuando la tengas -->
+          <img
+            src="/images/portfolio-content.jpg"
+            alt="Diseño y creación de contenido"
+            class="pf-card__img"
+            onerror="this.style.display='none'"
+          />
+          <div class="pf-card__img-placeholder">
+            <span>Imagen próximamente</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Diseño Web e CRM -->
+      <div class="pf-card pf-card--web">
+        <h3 class="pf-card__title">Diseño Web e<br/>Implementación<br/>de CRM</h3>
+        <p class="pf-card__desc">
+          Construimos presencias digitales que convierten visitantes en clientes,
+          integradas con CRM para automatizar tu gestión comercial.
+        </p>
+      </div>
+
+      <!-- Card 4: Publicidad impresa -->
+      <div class="pf-card pf-card--print">
+        <h3 class="pf-card__title">Publicidad impresa<br/>o material POP</h3>
+        <p class="pf-card__desc">
+          Desde brochures y pendones hasta displays y material de punto de venta
+          que refuerzan tu marca en el mundo físico.
+        </p>
+      </div>
+
+    </div><!-- /.portfolio__track -->
+  </div><!-- /.portfolio__pin-zone -->
+
+  <!-- CTA debajo del pin -->
+  <div class="portfolio__cta">
+    <p class="pf-cta-eyebrow">¿LISTO PARA EMPEZAR?</p>
+    <h3 class="pf-cta-title">Somos parte de ti</h3>
+    <p class="pf-cta-sub">Mira todo lo que hemos construido junto a nuestros clientes</p>
+    <a
+      href="https://wa.me/message/SEZARQ7BAYQOC1"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn pf-cta-btn"
+    >
+      Ver portafolio completo
+    </a>
+  </div>
+
 </section>
+
+<style>
+  /* ── Sección general ─────────────────────────────────── */
+  .portfolio {
+    background: var(--dark);
+    color: #fff;
+    /* Compensar navbar fija (~75px) para anchor scroll */
+    scroll-margin-top: 76px;
+  }
+
+  /* ── Header estático ─────────────────────────────────── */
+  .portfolio__header {
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+  }
+
+  .portfolio__eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--pink);
+    margin-bottom: 0.75rem;
+  }
+
+  .portfolio__title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+  }
+
+  /* ── Pin zone ─────────────────────────────────────────── */
+  .portfolio__pin-zone {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+  }
+
+  /* Track horizontal — más ancho que la pantalla */
+  .portfolio__track {
+    display: flex;
+    align-items: stretch;
+    height: 100vh;
+    /* el ancho total lo definen las cards */
+  }
+
+  /* ── Cards ───────────────────────────────────────────── */
+  .pf-card {
+    position: relative;
+    min-width: 75vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3rem 3.5rem;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* Colores de fondo por card */
+  .pf-card--video   { background: #0d061e; }
+  .pf-card--content { background: #110830; }
+  .pf-card--web     { background: #160a3a; }
+  .pf-card--print   { background: #1c0d44; }
+
+  /* Título grande — position:relative + z-index garantizan que quede sobre el ::after overlay */
+  .pf-card__title {
+    position: relative;
+    z-index: 3;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: #fff;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.4);
+    margin-bottom: 1rem;
+  }
+
+  /* Descripción */
+  .pf-card__desc {
+    position: relative;
+    z-index: 3;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.75);
+    max-width: 38ch;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+  }
+
+  /* ── Media: video ─────────────────────────────────────── */
+  .pf-card__media {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .pf-card__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.45;
+  }
+
+  /* ── Media: imagen ───────────────────────────────────── */
+  .pf-card__media--img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pf-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.45;
+  }
+
+  .pf-card__img-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.25);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    /* Se oculta cuando la imagen carga */
+  }
+
+  .pf-card__img:not([src=""]):not([src*="placeholder"]) + .pf-card__img-placeholder {
+    display: none;
+  }
+
+  /* Overlay gradiente en cada card para que el título sea legible */
+  .pf-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(13,6,30,0.97) 0%,
+      rgba(13,6,30,0.7)  40%,
+      rgba(13,6,30,0.2)  70%,
+      transparent        100%
+    );
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* El overlay gradiente está en z-index 1, la media en z-index 1,
+     los títulos en z-index 3 → siempre visibles */
+
+  /* Línea decorativa rosa en hover */
+  .pf-card::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--pink);
+    z-index: 3;
+    transition: width 0.4s ease;
+  }
+
+  .pf-card:hover::before {
+    width: 100%;
+  }
+
+  /* ── CTA debajo ──────────────────────────────────────── */
+  .portfolio__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 6rem 1.5rem;
+    background: var(--dark);
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .pf-cta-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--pink);
+  }
+
+  .pf-cta-title {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+  }
+
+  .pf-cta-sub {
+    max-width: 40ch;
+    color: rgba(255,255,255,0.6);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .pf-cta-btn {
+    background: var(--pink);
+    color: #fff;
+    margin-top: 0.5rem;
+    border: none;
+    padding: 0.9rem 2.2rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .pf-cta-btn:hover {
+    opacity: 0.85;
+  }
+
+  /* ── Mobile: deshabilita pin, scroll vertical normal ── */
+  @media (max-width: 767px) {
+    .portfolio__pin-zone {
+      height: auto;
+      overflow: visible;
+    }
+
+    .portfolio__track {
+      flex-direction: column;
+      height: auto;
+    }
+
+    .pf-card {
+      min-width: 100%;
+      height: 85vw;
+      min-height: 320px;
+      border-right: none;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .pf-card__title {
+      font-size: clamp(1.5rem, 6vw, 2.5rem);
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const mm = gsap.matchMedia();
+
+  mm.add("(min-width: 768px)", () => {
+    const pinZone = document.querySelector("#portfolioPin") as HTMLElement;
+    const track   = document.querySelector(".portfolio__track") as HTMLElement;
+
+    if (!pinZone || !track) return;
+
+    // Distancia total a desplazar horizontalmente
+    const getScrollDistance = () => track.scrollWidth - window.innerWidth;
+
+    const anim = gsap.to(track, {
+      x: () => -getScrollDistance(),
+      ease: "none",
+    });
+
+    ScrollTrigger.create({
+      trigger: pinZone,
+      pin: true,
+      scrub: 1,
+      start: "top 76px",   // debajo de la navbar fija
+      end: () => `+=${getScrollDistance()}`,
+      animation: anim,
+      invalidateOnRefresh: true,
+      pinnedContainer: pinZone,
+    });
+
+    // Slide-in de título/desc cuando cada card entra al viewport horizontal
+    // Usamos "from" con immediateRender:false para que el CSS opacity:1 sea el estado inicial
+    const cards = gsap.utils.toArray<HTMLElement>(".pf-card");
+    cards.forEach((card, i) => {
+      if (i === 0) return; // la primera card ya está visible, no necesita animación
+
+      const title = card.querySelector(".pf-card__title");
+      const desc  = card.querySelector(".pf-card__desc");
+      const targets = [title, desc].filter(Boolean);
+
+      if (!targets.length) return;
+
+      gsap.from(targets, {
+        y: 28,
+        opacity: 0,
+        duration: 0.65,
+        ease: "power2.out",
+        stagger: 0.1,
+        immediateRender: false,   // no toca opacity en el render inicial
+        scrollTrigger: {
+          trigger: card,
+          containerAnimation: anim,
+          start: "left 90%",
+          once: true,
+        },
+      });
+    });
+
+    return () => {
+      ScrollTrigger.getAll()
+        .filter((st) => st.vars.trigger === pinZone)
+        .forEach((st) => st.kill());
+    };
+  });
+</script>
