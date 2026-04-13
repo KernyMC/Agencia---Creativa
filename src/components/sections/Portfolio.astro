@@ -86,6 +86,7 @@
   /* ── Sección general ─────────────────────────────────── */
   .portfolio {
     background: var(--dark);
+    padding: 0;
     color: #fff;
     /* Compensar navbar fija (~75px) para anchor scroll */
     scroll-margin-top: 76px;
@@ -93,7 +94,7 @@
 
   /* ── Header estático ─────────────────────────────────── */
   .portfolio__header {
-    padding: 2.5rem 2rem 2rem;
+    padding: 2rem 2rem 2rem;
     text-align: center;
   }
 
@@ -115,6 +116,7 @@
   /* ── Pin zone ─────────────────────────────────────────── */
   .portfolio__pin-zone {
     height: 100vh;
+    height: 100dvh;   /* dvh descuenta taskbar y chrome del browser */
     overflow: hidden;
     display: flex;
     align-items: stretch;
@@ -125,7 +127,7 @@
     display: flex;
     align-items: stretch;
     height: 100vh;
-    /* el ancho total lo definen las cards */
+    height: 100dvh;
   }
 
   /* ── Cards ───────────────────────────────────────────── */
@@ -133,10 +135,12 @@
     position: relative;
     min-width: 75vw;
     height: 100vh;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 3rem 3.5rem;
+    /* padding-bottom generoso para que el texto no quede pegado al borde */
+    padding: 3rem 3.5rem clamp(6rem, 12vh, 9rem);
     border-right: 1px solid rgba(255,255,255,0.08);
     overflow: hidden;
     flex-shrink: 0;
@@ -317,14 +321,21 @@
 
     .pf-card {
       min-width: 100%;
-      height: 85vw;
-      min-height: 320px;
+      height: 56vw;
+      min-height: 200px;
+      padding: 1.5rem 1.75rem 2rem;
       border-right: none;
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
+    /* Ocultar descripción en móvil — solo título */
+    .pf-card__desc {
+      display: none;
+    }
+
     .pf-card__title {
-      font-size: clamp(1.5rem, 6vw, 2.5rem);
+      font-size: clamp(1.3rem, 5.5vw, 2rem);
+      margin-bottom: 0;
     }
   }
 </style>
