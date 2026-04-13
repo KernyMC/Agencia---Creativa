@@ -174,10 +174,23 @@ ul {
 }
 .hero__image-wrap {
   position: relative;
+  overflow: hidden;
 }
 .hero__image {
   width: 100%;
   object-fit: cover;
+  display: block;
+}
+.hero__wave {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: clamp(56px, 9vw, 96px);
+  pointer-events: none;
+}
+.hero__wave path {
+  fill: var(--cream);
 }
 .hero__badge {
   position: absolute;
