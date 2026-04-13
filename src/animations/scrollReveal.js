@@ -104,21 +104,20 @@ export function initScrollReveal() {
     });
   });
 
-  // Team circles pop in — animación exclusiva, sin conflicto con cards-stagger
+  // Team cards pop in — usa from() con immediateRender:false
+  // para que el estado inicial NO se aplique hasta que el trigger dispare.
+  // Esto evita que en producción las cards queden en scale:0.8 con gaps blancos.
   ScrollTrigger.batch(".team-card", {
     start: "top 85%",
     onEnter: (elements) => {
-      gsap.fromTo(elements,
-        { scale: 0.8, opacity: 0, y: 20 },
-        {
-          scale: 1,
-          opacity: 1,
-          y: 0,
-          duration: motion.duration.normal,
-          ease: motion.ease.bounce,
-          stagger: motion.stagger.loose,
-        }
-      );
+      gsap.from(elements, {
+        opacity: 0,
+        y: 24,
+        duration: motion.duration.normal,
+        ease: motion.ease.smooth,
+        stagger: motion.stagger.loose,
+        immediateRender: false,
+      });
     },
     once: true,
   });
